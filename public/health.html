@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Check - Transformer Asset Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: #f8f9fa;
+        }
+        .status {
+            background: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .timestamp {
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Transformer Asset Dashboard</h1>
+    <div class="status">
+        <h2>✅ Status: Healthy</h2>
+        <p>Application is running successfully</p>
+    </div>
+    <div class="timestamp">
+        Last updated: <span id="timestamp"></span>
+    </div>
+    
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toISOString();
+    </script>
+</body>
+</html>

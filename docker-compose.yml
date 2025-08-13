@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  transformer-dashboard:
+    build: .
+    ports:
+      - "8080:80"
+    container_name: transformer-dashboard
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./logs:/var/log/nginx
+    networks:
+      - transformer-network
+
+networks:
+  transformer-network:
+    driver: bridge
+
+volumes:
+  logs:
