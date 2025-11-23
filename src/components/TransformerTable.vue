@@ -81,92 +81,69 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+<script setup lang="ts">
+import { computed, ref } from 'vue';
 import { useTransformerStore } from '@/stores/transformer';
 
-export default defineComponent({
-  name: 'TransformerTable',
-  setup() {
-    const store = useTransformerStore();
-    const isToggling = ref(false);
-    const toggleTimeout = ref<number | null>(null);
+const store = useTransformerStore();
+const isToggling = ref(false);
+const toggleTimeout = ref<number | null>(null);
 
-    const searchQuery = computed({
-      get: () => store.searchQuery,
-      set: (value: string) => store.setSearchQuery(value)
-    });
-
-    const regionFilter = computed({
-      get: () => store.regionFilter,
-      set: (value: string) => store.setRegionFilter(value)
-    });
-
-    const healthFilter = computed({
-      get: () => store.healthFilter,
-      set: (value: string) => store.setHealthFilter(value)
-    });
-
-    const filteredTransformers = computed(() => store.filteredTransformers);
-    const availableRegions = computed(() => store.availableRegions);
-    const availableHealthStatuses = computed(() => store.availableHealthStatuses);
-    const isLoading = computed(() => store.isLoading);
-    const error = computed(() => store.error);
-
-    const handleSearch = () => {
-      store.setSearchQuery(searchQuery.value);
-    };
-
-    const handleRegionFilter = () => {
-      store.setRegionFilter(regionFilter.value);
-    };
-
-    const handleHealthFilter = () => {
-      store.setHealthFilter(healthFilter.value);
-    };
-
-    const clearFilters = () => {
-      store.clearFilters();
-    };
-
-    const handleToggleSelection = (transformerId: number) => {
-      if (isToggling.value) return;
-      
-      isToggling.value = true;
-      store.toggleTransformerSelection(transformerId);
-      
-      if (toggleTimeout.value) {
-        clearTimeout(toggleTimeout.value);
-      }
-      
-      toggleTimeout.value = window.setTimeout(() => {
-        isToggling.value = false;
-      }, 300);
-    };
-
-    const isSelected = (transformerId: number) => {
-      return store.selectedTransformers.has(transformerId);
-    };
-
-    return {
-      searchQuery,
-      regionFilter,
-      healthFilter,
-      filteredTransformers,
-      availableRegions,
-      availableHealthStatuses,
-      isLoading,
-      error,
-      isToggling,
-      handleSearch,
-      handleRegionFilter,
-      handleHealthFilter,
-      clearFilters,
-      handleToggleSelection,
-      isSelected
-    };
-  }
+const searchQuery = computed({
+  get: () => store.searchQuery,
+  set: (value: string) => store.setSearchQuery(value)
 });
+
+const regionFilter = computed({
+  get: () => store.regionFilter,
+  set: (value: string) => store.setRegionFilter(value)
+});
+
+const healthFilter = computed({
+  get: () => store.healthFilter,
+  set: (value: string) => store.setHealthFilter(value)
+});
+
+const filteredTransformers = computed(() => store.filteredTransformers);
+const availableRegions = computed(() => store.availableRegions);
+const availableHealthStatuses = computed(() => store.availableHealthStatuses);
+const isLoading = computed(() => store.isLoading);
+const error = computed(() => store.error);
+
+const handleSearch = () => {
+  store.setSearchQuery(searchQuery.value);
+};
+
+const handleRegionFilter = () => {
+  store.setRegionFilter(regionFilter.value);
+};
+
+const handleHealthFilter = () => {
+  store.setHealthFilter(healthFilter.value);
+};
+
+const clearFilters = () => {
+  store.clearFilters();
+};
+
+const handleToggleSelection = (transformerId: number) => {
+  if (isToggling.value) return;
+  
+  isToggling.value = true;
+  store.toggleTransformerSelection(transformerId);
+  
+  if (toggleTimeout.value) {
+    clearTimeout(toggleTimeout.value);
+  }
+  
+  toggleTimeout.value = window.setTimeout(() => {
+    isToggling.value = false;
+  }, 300);
+};
+
+const isSelected = (transformerId: number) => {
+  return store.selectedTransformers.has(transformerId);
+};
 </script>
 
 <style scoped>

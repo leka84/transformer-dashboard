@@ -47,17 +47,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted, onUnmounted, watch, nextTick, toRaw } from 'vue';
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted, watch, nextTick, toRaw } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import { useTransformerStore } from '@/stores/transformer';
 
 Chart.register(...registerables);
 
-export default defineComponent({
-  name: 'VoltageChart',
-  setup() {
-    const store = useTransformerStore();
+const store = useTransformerStore();
     const chartCanvas = ref<HTMLCanvasElement | null>(null);
     const chart = ref<Chart | null>(null);
     const isDestroying = ref(false);
@@ -287,25 +284,11 @@ export default defineComponent({
       }, 800); // Increased delay to ensure everything is ready
     });
 
-    onUnmounted(() => {
-      if (updateTimeout.value) {
-        clearTimeout(updateTimeout.value);
-      }
-      destroyChart();
-    });
-
-    return {
-      chartCanvas,
-      transformers,
-      selectedTransformerData,
-      isLoading,
-      error,
-      isSelected,
-      toggleSelection,
-      selectAll,
-      deselectAll
-    };
+onUnmounted(() => {
+  if (updateTimeout.value) {
+    clearTimeout(updateTimeout.value);
   }
+  destroyChart();
 });
 </script>
 

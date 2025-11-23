@@ -10,12 +10,8 @@
   </footer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'AppFooter'
-});
+<script setup lang="ts">
+// Footer component - no additional logic needed
 </script>
 
 <style scoped>

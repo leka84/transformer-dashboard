@@ -14,35 +14,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+<script setup lang="ts">
+import { onMounted } from 'vue';
 import { useTransformerStore } from '@/stores/transformer';
 import TransformerTable from '@/components/TransformerTable.vue';
 import VoltageChart from '@/components/VoltageChart.vue';
 import AppFooter from '@/components/Footer.vue';
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    TransformerTable,
-    VoltageChart,
-    AppFooter
-  },
-  /**
-   * Component setup function that initializes the transformer store
-   * and loads transformer data when the component is mounted.
-   * 
-   * @returns {Object} Empty object as no reactive data is returned
-   */
-  setup() {
-    const store = useTransformerStore();
+/**
+ * Component setup function that initializes the transformer store
+ * and loads transformer data when the component is mounted.
+ */
+const store = useTransformerStore();
 
-    onMounted(() => {
-      store.loadTransformers();
-    });
-
-    return {};
-  }
+onMounted(() => {
+  store.loadTransformers();
 });
 </script>
 
